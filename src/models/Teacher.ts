@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Types, Document } from "mongoose";
 import { setCache, getCache } from "../config/redisConfig";
 
 // Define the Teacher interface
@@ -6,7 +6,7 @@ export interface ITeacher extends Document {
   firstName: string;
   lastName: string;
   email: string;
-  userId: mongoose.Schema.Types.ObjectId;
+  userId: Types.ObjectId;
   students: mongoose.Schema.Types.ObjectId[];
 }
 

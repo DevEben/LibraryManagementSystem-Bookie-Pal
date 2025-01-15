@@ -27,7 +27,7 @@ This project is a backend application built with Node.js, Express.js, and MongoD
 3.  Create a .env file in the root directory and add the following environment variables:
 
     -    PORT = your_port_number
-    -    DATABASE = your_mongodb_connection_string
+    -    DATABASE_URL = your_mongodb_connection_string
     -    SECRET = your_jwt_secret
     -    MAIL_PASS = your_mail_password
     -    MAIL_USER = your_email_address

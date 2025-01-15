@@ -1,4 +1,5 @@
 import Joi, { ObjectSchema, ValidationResult } from '@hapi/joi';
+import mongoose from 'mongoose';
 
 interface UserData {
     firstName: string;
@@ -18,6 +19,25 @@ interface UserStdData {
     lastName: string;
     email: string;
 }
+
+interface Book {
+    title: string;
+    author: string;
+    publisher: string;
+    publicationDate: Date;
+    ISBN: string;
+    status: "available" | "borrowed";
+    student?: string;
+}
+
+export interface IBorrowedBook {
+    bookId: mongoose.Types.ObjectId | null;
+    studentId: mongoose.Types.ObjectId | null;
+    borrowDate: Date;
+    returnDate: Date | null;
+    status: "pending" | "approved" | "rejected";
+  }
+
 
 const validateUser = (data: UserData): ValidationResult => {
     const userValidationSchema: ObjectSchema<UserData> = Joi.object({
@@ -39,9 +59,9 @@ const validateUser = (data: UserData): ValidationResult => {
             "string.pattern.base": "Password must contain lowercase, uppercase, numbers, and special characters",
             "any.required": "Password field can't be left empty",
         }),
-        role: Joi.string().valid("admin", "teacher", "student").required().messages({ 
+        role: Joi.string().valid("admin", "teacher", "student").required().messages({
             "any.required": "Role is required",
-            "any.only": "Role must be either admin, teacher, or student", 
+            "any.only": "Role must be either admin, teacher, or student",
         }),
     });
 
@@ -86,8 +106,8 @@ const validateStdUpdate = (data: UserStdData): ValidationResult => {
 }
 
 
-const validateEmail = (data: { email: string}): ValidationResult => {
-    const validateSchema: ObjectSchema<{email: string}> = Joi.object({ 
+const validateEmail = (data: { email: string }): ValidationResult => {
+    const validateSchema: ObjectSchema<{ email: string }> = Joi.object({
         email: Joi.string().email().required().messages({
             "string.email": "Please provide a valid email address",
             "any.required": "Email is required",
@@ -152,4 +172,67 @@ const validateUpdatedUser = (data: UserData): ValidationResult => {
 };
 
 
-export { validateUser, validateStd, validateStdUpdate, validateEmail, validateResetPassword, validateUpdatedUser, };
+// Validation schema for creating a new book
+const validateBook = (bookData: Book): ValidationResult => {
+    const schema: ObjectSchema<Book> = Joi.object({
+        title: Joi.string().min(3).max(255).required(),
+        author: Joi.string().min(3).max(255).required(),
+        publisher: Joi.string().min(3).max(255).required(),
+        publicationDate: Joi.date().less("now").required(),
+        ISBN: Joi.string().min(10).max(13).required(), // Assuming ISBN length between 10 and 13 digits
+        status: Joi.string().valid("available", "borrowed").required(),
+    });
+
+    return schema.validate(bookData);
+};
+
+// Validation schema for updating an existing book
+const validateBookUpdate = (bookData: Partial<Book>): ValidationResult => {
+    const schema: ObjectSchema<Partial<Book>> = Joi.object({
+        title: Joi.string().min(3).max(255).optional(),
+        author: Joi.string().min(3).max(255).optional(),
+        publisher: Joi.string().min(3).max(255).optional(),
+        publicationDate: Joi.date().less("now").optional(),
+        ISBN: Joi.string().min(10).max(13).optional(),
+        status: Joi.string().valid("available", "borrowed").optional(),
+        student: Joi.string().optional(), // Can be assigned when a student borrows the book
+    });
+
+    return schema.validate(bookData);
+};
+
+
+// Validator for borrowing a book
+const validateBorrowedBook = (data: IBorrowedBook) => {
+    const schema = Joi.object({
+      studentId: Joi.string().required().messages({
+        "string.base": `"studentId" should be a type of 'text'`,
+        "string.empty": `"studentId" cannot be an empty field`,
+        "any.required": `"studentId" is a required field`,
+      }),
+      bookId: Joi.string().required().messages({
+        "string.base": `"bookId" should be a type of 'text'`,
+        "string.empty": `"bookId" cannot be an empty field`,
+        "any.required": `"bookId" is a required field`,
+      }),
+      borrowDate: Joi.date().iso().required().messages({
+        "date.base": `"borrowDate" should be a valid date`,
+        "any.required": `"borrowDate" is a required field`,
+      }),
+    });
+  
+    return schema.validate(data);
+  };
+
+
+export { 
+    validateUser, 
+    validateStd, 
+    validateStdUpdate,
+    validateEmail, 
+    validateResetPassword, 
+    validateUpdatedUser, 
+    validateBook, 
+    validateBookUpdate, 
+    validateBorrowedBook, 
+};

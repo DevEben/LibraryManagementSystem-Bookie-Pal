@@ -71,6 +71,10 @@ export const getBookById = async (id: string): Promise<IBook | null> => {
   return Book.findById(id).exec();
 };
 
+export const getBookByTitle = async (title: string): Promise<IBook | null> => {
+  return Book.findOne({title}).exec();
+};
+
 export const getBooksByStatus = async (status: "available" | "borrowed"): Promise<IBook[]> => {
   return Book.find({ status }).exec();
 };
