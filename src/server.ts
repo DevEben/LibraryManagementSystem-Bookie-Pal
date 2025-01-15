@@ -13,15 +13,15 @@ import { userResolvers } from "./graphql/resolvers/userResolver";
 import { borrowResolvers } from "./graphql/resolvers/borrowResolver";
 import { connectDB } from "./config/dbConfig";
 import userRoutes from './routes/userRouter';
-// import teacherRoutes from './routes/teacherRouter';
-// import studentRoutes from './routes/studentRouter';
-// import bookRoutes from './routes/bookRouter';
-// import borrowRoutes from './routes/borrowRouter';
+import teacherRoutes from './routes/teacherRouter';
+import studentRoutes from './routes/studentRouter';
+import bookRoutes from './routes/bookRouter';
+import borrowRoutes from './routes/borrowRouter';
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const app = express();
+const app = express(); 
 
 const corsOptions = {
     origin: "*",
@@ -43,10 +43,10 @@ app.get('/', async (req: Request, res: Response): Promise<Response> => {
 
 // RESTful API Routes
 app.use('/api/users', userRoutes);
-// app.use('/api/teachers', teacherRoutes);
-// app.use('/api/students', studentRoutes);
-// app.use('/api/books', bookRoutes);
-// app.use('/api/borrow', borrowRoutes);
+app.use('/api/teachers', teacherRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/books', bookRoutes);
+app.use('/api/borrow', borrowRoutes);
 
 // GraphQL Server
 const apolloServer = new ApolloServer({
