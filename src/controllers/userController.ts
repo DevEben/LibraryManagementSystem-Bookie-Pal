@@ -86,7 +86,7 @@ export const signUp_User = async (req: Request, res: Response): Promise<Response
     const subject = "Email Verification";
     const name = `${user.firstName} ${user.lastName}`;
 
-    const link = `${req.protocol}://${req.get("host")}/api/v1/verify-user/${
+    const link = `${req.protocol}://${req.get("host")}/api/users/verify-user/${
       user._id
     }/${user.token}`;
     const html = generateDynamicEmail((name), link);
@@ -189,7 +189,7 @@ export const verify_User = async (req: Request, res: Response) => {
 
         const link = `${req.protocol}://${req.get(
           "host"
-        )}/api/v1/verify-user/${id}/${newToken}`;
+        )}/api/users/verify-user/${id}/${newToken}`;
         const name = `${user.firstName} ${user.lastName}`;
         await sendMail({
           email: user.email,
@@ -336,7 +336,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
     if (!user) return res.status(404).json({ message: "Email does not exist" });
 
     const subject = "Kindly Reset Your Password";
-    const link = `${req.protocol}://${req.get("host")}/api/v1/reset-password/${
+    const link = `${req.protocol}://${req.get("host")}/api/users/reset-password/${
       user._id
     }`;
     const html = resetFunc(user.email, link);
