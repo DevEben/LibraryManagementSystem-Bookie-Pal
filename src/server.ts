@@ -43,10 +43,10 @@ app.get('/', async (req: Request, res: Response): Promise<Response> => {
 
 // RESTful API Routes
 app.use('/api/users', userRoutes);
-app.use('/api/teachers', teacherRoutes);
-app.use('/api/students', studentRoutes);
-app.use('/api/books', bookRoutes);
-app.use('/api/borrow', borrowRoutes);
+app.use('/api', teacherRoutes);
+app.use('/api', studentRoutes);
+app.use('/api', bookRoutes);
+app.use('/api', borrowRoutes);
 
 // GraphQL Server
 const apolloServer = new ApolloServer({
