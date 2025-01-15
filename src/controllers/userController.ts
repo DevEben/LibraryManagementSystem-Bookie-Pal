@@ -139,7 +139,7 @@ export const signUp_User = async (req: Request, res: Response): Promise<Response
           firstName,
           lastName,
           email,
-          userId: user.id,
+          userId: user._id,
       });
   
       // Save the teacher
