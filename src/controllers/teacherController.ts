@@ -92,6 +92,36 @@ export const getAllTeachers = async (
   }
 };
 
+
+export const getAllStudentsOfTeacher = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  try {
+
+    const userId = req.params.userId;
+    const teacher = await getTeacherById(userId);
+    if (!teacher) {
+      return res.status(404).json({ message: "No teacher found" });
+    }
+
+    return res.status(200).json({
+      message: `Retrieved all students from ${teacher.firstName} ${teacher.lastName}`,
+      data: teacher.students,
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return res.status(500).json({
+        message: "Internal Server Error: " + error.message,
+      });
+    }
+    return res.status(500).json({
+      message: "Internal Server Error: An unexpected error occurred.",
+    });
+  }
+};
+
+
 export const getOneTeacher = async (
   req: Request,
   res: Response

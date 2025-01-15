@@ -12,6 +12,7 @@ import { generateLoginNotificationEmail } from "../utils/sendLoginEmail";
 import {Student} from "../models/Student";
 import {Teacher} from "../models/Teacher";
 import Bowser from "bowser";
+import mongoose from "mongoose";
 
 
 // Function to get device information from user-agent
@@ -106,12 +107,44 @@ export const signUp_User = async (req: Request, res: Response): Promise<Response
     }
 
     if (role === 'student') {
-        const student = new Student({ firstName, lastName, email, userId: user.id });
-        await student.save();
-    } else if (role === 'teacher') {
-        const teacher = new Teacher({ firstName, lastName, email, userId: user.id });
-        await teacher.save();
-    }
+      const { teacherEmail } = req.body;
+  
+      if (!teacherEmail) {
+          return res.status(400).json({ message: "Teacher's email is required for student registration." });
+      }
+  
+      // Check if teacher exists
+      const teacher = await Teacher.findOne({ email: teacherEmail });
+      if (!teacher) {
+          return res.status(404).json({ message: "Teacher not found. Please provide a valid teacher email." });
+      }
+  
+      const student = new Student({
+          firstName,
+          lastName,
+          email,
+          userId: user.id,
+          teacher: teacher._id, // Reference the teacher
+      });
+  
+      // Save the student
+      await student.save();
+  
+      // Update the teacher to add this student
+      teacher.students = teacher.students || [];
+      teacher.students.push(student._id as mongoose.Schema.Types.ObjectId);
+      await teacher.save();
+  } else if (role === 'teacher') {
+      const teacher = new Teacher({
+          firstName,
+          lastName,
+          email,
+          userId: user.id,
+      });
+  
+      // Save the teacher
+      await teacher.save();
+  }  
 
     return res.status(201).json({
       message:
