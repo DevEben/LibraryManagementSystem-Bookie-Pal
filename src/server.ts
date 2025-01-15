@@ -68,6 +68,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction): void => {
     }
 });
 
+const PORT = process.env.PORT || 4000;
+
 async function initServer() {
   try {
     await apolloServer.start();
@@ -76,7 +78,6 @@ async function initServer() {
     // Connect to the Database
     connectDB();
 
-    const PORT = process.env.PORT || 4000;
     app.listen(PORT, () => {
       console.log(`Express Server is running on http://localhost:${PORT}`);
       console.log(`GraphQL Server is running on http://localhost:${PORT}/graphql`);
