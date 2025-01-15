@@ -35,6 +35,10 @@ This project is a backend application built with Node.js, Express.js, and MongoD
     -    CLOUD_NAME = cloudinary_cloud_name
     -    API_KEY = 6cloudinary_api_key
     -    API_SECRET = cloudinary_api_secret
+    -    REDIS_URL = your_redis_url
+    -    REDIS_HOST = your_redis_hostname
+    -    REDIS_PORT = your_redis_port
+    -    REDIS_PASSWORD = your_redis_password
 
 
 ## Usage
