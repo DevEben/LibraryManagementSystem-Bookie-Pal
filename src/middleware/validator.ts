@@ -7,6 +7,7 @@ interface UserData {
     email: string;
     password: string;
     role: string;
+    teacher?: string;
 }
 
 interface ResetPasswordData {
@@ -50,6 +51,10 @@ const validateUser = (data: UserData): ValidationResult => {
             "any.required": "lastName is required",
         }),
         email: Joi.string().email().required().messages({
+            "string.email": "Please provide a valid email address",
+            "any.required": "Email is required",
+        }),
+        teacherEmail: Joi.string().email().required().messages({
             "string.email": "Please provide a valid email address",
             "any.required": "Email is required",
         }),
