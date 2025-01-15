@@ -17,6 +17,9 @@ import userRoutes from './routes/userRouter';
 // import studentRoutes from './routes/studentRouter';
 // import bookRoutes from './routes/bookRouter';
 // import borrowRoutes from './routes/borrowRouter';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
