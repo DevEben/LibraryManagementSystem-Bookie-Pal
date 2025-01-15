@@ -1,0 +1,50 @@
+{
+  "name": "librarymanagementsystem",
+  "version": "1.0.0",
+  "description": "A server side library management system typescript project using NodeJs Express MongoDB ApolloServer GraphQL and RESTful API",
+  "main": "server.ts",
+  "scripts": {
+    "start": "nodemon",
+    "dev": "nodemon server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "DevEben",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "@hapi/joi": "^17.1.1",
+    "@types/bcrypt": "^5.0.2",
+    "@types/body-parser": "^1.19.5",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^4.17.17",
+    "@types/hapi__joi": "^17.1.15",
+    "@types/ioredis": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/mongoose": "^5.11.97",
+    "@types/multer": "^1.4.12",
+    "@types/nodemailer": "^6.4.16",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "bowser": "^2.11.0",
+    "cloudinary": "^2.5.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "graphql": "^16.10.0",
+    "graphql-tag": "^2.12.6",
+    "ioredis": "^5.4.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.16"
+  }
+}
