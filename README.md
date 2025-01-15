@@ -67,6 +67,12 @@ Make sure you have MongoDB installed and running. Create a database for this pro
 -    Redis
 
 
+## API Documentation
+
+You can find the API documentation here:
+
+[Postman API Documentation - Bookie-Pal](https://documenter.getpostman.com/view/31029208/2sAYQZGBfx)
+
 
 
 ## Contributing
