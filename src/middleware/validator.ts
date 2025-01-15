@@ -54,9 +54,9 @@ const validateUser = (data: UserData): ValidationResult => {
             "string.email": "Please provide a valid email address",
             "any.required": "Email is required",
         }),
-        teacherEmail: Joi.string().email().required().messages({
+        teacherEmail: Joi.string().email().messages({
             "string.email": "Please provide a valid email address",
-            "any.required": "Email is required",
+            "any.required": "Teacher Email is required",
         }),
         password: Joi.string().min(6).pattern(new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/)).required().messages({
             "string.min": "Password must be at least 8 characters long",
