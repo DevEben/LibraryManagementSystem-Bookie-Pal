@@ -7,7 +7,7 @@ interface UserData {
     email: string;
     password: string;
     role: string;
-    teacher?: string;
+    teacherEmail?: string;
 }
 
 interface ResetPasswordData {
