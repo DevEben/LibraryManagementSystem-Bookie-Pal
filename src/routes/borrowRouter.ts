@@ -16,9 +16,9 @@ router.post('/borrowed', authenticate, borrowBook);
 router.get('/borrowed', authenticate, getAllBorrowedBooks);
 
 // Endpoint to get details of a borrowed book by a student
-router.get('/borrowed/:borrowedId', authenticate, getBorrowedBookByStudent);
+router.get('/borrowed/:studentId', authenticate, getBorrowedBookByStudent);
 
 // Endpoint to return a borrowed book
-router.put('/borrowed/:borrowedId', authenticate, returnBorrowedBooks);
+router.put('/borrowed/:borrowId', authenticate, returnBorrowedBooks);
 
 export default router;
